@@ -26,12 +26,11 @@ func NewPlanarWaveguide(coreHalfThicknessMeters,
 		return nil, fmt.Errorf("Core refractive index must be greater than cladding refractive index")
 	}
 	
-	pwg = &PlanarWaveguide{
+	pwg := &PlanarWaveguide{
 		coreHalfThicknessMeters: coreHalfThicknessMeters,
 		wavelengthMeters: wavelengthMeters,
 		coreRefractiveIndex: coreRefractiveIndex,
-		claddingRefractiveIndex: claddingRefractiveIndex
-	}
+		claddingRefractiveIndex: claddingRefractiveIndex}
 	return pwg, nil
 }
 
