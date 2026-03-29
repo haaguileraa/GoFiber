@@ -109,13 +109,13 @@ func TestComputations(t *testing.T){
 		coreIndex_t,
 		claddIndex_t)
 
-	k0 := pwg.GetWaveNumber()
-	if !almostEqual(*k0*1e-6, waveNumber_t*1e-6) {
-		t.Fatalf("Expected wave number, k0 = %f, got %f instead", waveNumber_t, *k0)
+	k0 := pwg.WaveNumber()
+	if !almostEqual(k0*1e-6, waveNumber_t*1e-6) {
+		t.Fatalf("Expected wave number, k0 = %f, got %f instead", waveNumber_t, k0)
 	}
 
-	V := pwg.GetNormalizedFrequency()
-	if !almostEqual(*V, normalizedFrequency_t) {
-		t.Fatalf("Expected normalized frequency, V = %f, got %f instead", normalizedFrequency_t, *V)
+	V := pwg.NormalizedFrequency()
+	if !almostEqual(V, normalizedFrequency_t) {
+		t.Fatalf("Expected normalized frequency, V = %f, got %f instead", normalizedFrequency_t, V)
 	}
 }

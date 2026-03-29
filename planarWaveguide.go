@@ -35,16 +35,16 @@ func NewPlanarWaveguide(coreHalfThicknessMeters,
 	return pwg, nil
 }
 
-func (pwg *PlanarWaveguide) GetWaveNumber() *float64 {
+func (pwg *PlanarWaveguide) WaveNumber() float64 {
 	k0 := 2.0 * math.Pi / pwg.wavelengthMeters // rad/m
-	return &k0
+	return k0
 }
 
-func (pwg *PlanarWaveguide) GetNormalizedFrequency () *float64 {
-	k0 := pwg.GetWaveNumber()
+func (pwg *PlanarWaveguide) NormalizedFrequency () float64 {
+	k0 := pwg.WaveNumber()
 	numericalAperture := math.Pow(pwg.coreRefractiveIndex, 2) - math.Pow(pwg.claddingRefractiveIndex, 2)
-	V := math.Sqrt(math.Pow(*k0 * pwg.coreHalfThicknessMeters ,2) * numericalAperture)
-	return &V // waveguide parameter
+	V := k0 * pwg.coreHalfThicknessMeters * math.Sqrt(numericalAperture)
+	return V // waveguide parameter
 }
 
 
