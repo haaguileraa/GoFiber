@@ -3,6 +3,7 @@ package planarWaveguide
 import (
 	"github.com/haaguileraa/GoFiber"
 	"testing"
+	"math"
 )
 
 
@@ -10,6 +11,15 @@ const coreHalfThicknessMeters_t float64 = 1e-6
 const wavelengthMeters_t float64 = 1.55e-6
 const coreIndex_t float64 = 1.5
 const claddIndex_t float64 = 1.0
+
+const waveNumber_t float64 = 4053667.940116
+const normalizedFrequency_t float64 = 4.53213853616
+const float64Threshold = 1e-9
+
+func almostEqual(a, b float64) bool {
+	return math.Abs(a-b) <= float64Threshold
+}
+
 
 func TestPlanarWaveGuide(t *testing.T){
 	tests := []struct {
@@ -90,5 +100,22 @@ func TestPlanarWaveGuide(t *testing.T){
 			}
 		})
 	}
+}
 
+func TestComputations(t *testing.T){
+	pwg, _ := planarWaveguide.NewPlanarWaveguide(
+		coreHalfThicknessMeters_t,
+		wavelengthMeters_t,
+		coreIndex_t,
+		claddIndex_t)
+
+	k0 := pwg.GetWaveNumber()
+	if !almostEqual(*k0*1e-6, waveNumber_t*1e-6) {
+		t.Fatalf("Expected wave number, k0 = %f, got %f instead", waveNumber_t, *k0)
+	}
+
+	V := pwg.GetNormalizedFrequency()
+	if !almostEqual(*V, normalizedFrequency_t) {
+		t.Fatalf("Expected normalized frequency, V = %f, got %f instead", normalizedFrequency_t, *V)
+	}
 }
